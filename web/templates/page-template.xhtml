@@ -1,0 +1,129 @@
+<?xml version='1.0' encoding='UTF-8' ?> 
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:ui="http://java.sun.com/jsf/facelets">
+
+    <h:head>
+        <meta charset="utf-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="viewport" content="width=device-width, initial-scale=1" />        
+        <title>Contract Management System :: <ui:insert name="title">Default</ui:insert></title>        
+        <link href="resources/css/bootstrap.min.css" rel="stylesheet" />
+        <link href="resources/css/bootstrap-combobox.css" rel="stylesheet" />
+        <link href="resources/css/bootstrap-datetimepicker.css" rel="stylesheet" />
+        <link href="resources/css/dataTables.bootstrap.css" rel="stylesheet" />
+        <link href="resources/css/default.css" rel="stylesheet" />
+    </h:head>
+
+    <h:body>
+
+        <div id="top" class="container-fluid">
+
+           <div class="navbar" role="navigation">
+                <div class="row">
+                    <div class="col-lg-4">
+                        <img class="img-responsive" src="resources/images/mea-logo-2color.png" />
+                    </div>
+                    <div class="col-lg-4 text-center">
+                        <span class="title">ระบบบริหารจัดการข้อมูลสำหรับงานสัญญา</span><br />
+                        <span>Contract Management System</span>
+                    </div>
+                    <div class="col-lg-4 text-right spacer">
+                        <span class="glyphicon glyphicon-user"></span>
+                        <h:outputText id="txtFullName" value="#{'Firstname Lastname'} " />
+                        <button type="button" class="btn btn-primary">
+                            <span class="glyphicon glyphicon-log-out"></span> ออกจากระบบ
+                        </button>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-lg-1 col-lg-offset-2">
+                        <a class="pulse-grow nav-item" href="#">
+                            <img class="img-responsive" src="resources/images/home.png" />
+                            <span>หน้าแรก</span>
+                        </a>
+                    </div>
+                    <div class="col-lg-1">
+                        <a class="pulse-grow nav-item" href="#">
+                            <img class="img-responsive" src="resources/images/document-construction-icon.png" />
+                            <span>ค่าแรงพร้อมวัสดุ</span>
+                        </a>
+                    </div>
+                    <div class="col-lg-1">
+                        <a class="pulse-grow nav-item" href="#">
+                            <img class="img-responsive" src="resources/images/hook-icon.png" />
+                            <span>ค่าแรง + วัสดุ + เครื่องมือกล</span>
+                        </a>
+                    </div>
+                    <div class="col-lg-1">
+                        <a class="pulse-grow nav-item" href="#">
+                            <img class="img-responsive" src="resources/images/contract-icon.png" />
+                            <span>ใบสั่งจ้าง</span>
+                        </a>
+                    </div>
+                    <div class="col-lg-1">
+                        <a class="pulse-grow nav-item" href="#">
+                            <img class="img-responsive" src="resources/images/maintenance-icon.png" />
+                            <span>สัญญาบำรุงรักษา</span>
+                        </a>
+                    </div>
+                    <div class="col-lg-1">
+                        <a class="pulse-grow nav-item" href="#">
+                            <img class="img-responsive" src="resources/images/groups-meeting-light-icon.png" />
+                            <span>คณะกรรมการ</span>
+                        </a>
+                    </div>
+                    <div class="col-lg-1">
+                        <a class="pulse-grow nav-item" href="#">
+                            <img class="img-responsive" src="resources/images/office-customer-male-light-icon.png" />
+                            <span>ผู้รับจ้าง</span>
+                        </a>
+                    </div>
+                    <div class="col-lg-1">
+                        <a class="pulse-grow nav-item" href="#">
+                            <img class="img-responsive" src="resources/images/signature-icon.png" />
+                            <span>รายงานสรุป</span>
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+        
+        <div id="content" class="container-fluid">
+            <p:ajaxStatus styleClass="loading">
+                <f:facet name="start">
+                      <p:graphicImage value="resources/images/ajax-loader.gif" />
+                </f:facet>
+            </p:ajaxStatus>
+            <h:messages styleClass="alert" errorClass="alert-error" warnClass="alert-warning" infoClass="alert-info" />
+            <ui:insert name="content">Content</ui:insert>
+        </div>
+        <hr/>
+        
+        <!-- Include all compiled plugins (below), or include individual files as needed -->
+        <script src="resources/scripts/jquery.dataTables.min.js"></script>
+        <script src="resources/scripts/dataTables.bootstrap.js"></script>
+        <script src="resources/scripts/bootstrap.min.js"></script>
+        <script src="resources/scripts/bootstrap-combobox.js"></script>
+        <script src="resources/scripts/moment.js"></script>
+        <script src="resources/scripts/bootstrap-datetimepicker.js"></script>
+        <script type="text/javascript">
+        //<![CDATA[
+            function reloadAll() {
+                $('.combobox').combobox();
+                $('.date').datetimepicker();
+                $('.datatable').dataTable();
+            }
+            $(document).ready(function() {
+                reloadAll();
+            });
+        //]]>
+        </script>
+
+    </h:body>
+
+</html>

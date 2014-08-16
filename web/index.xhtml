@@ -1,0 +1,176 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                template="./templates/page-template.xhtml">
+
+    <ui:define name="title">หน้าแรก</ui:define>
+
+    <ui:define name="content">
+        
+        <h:form>
+            
+            <div class="row">
+                <div class="col-lg-1">
+                    <div class="nav-item">
+                        <img class="img-responsive" src="resources/images/download.png" />
+                        <span>ส่งออกข้อมูล</span>
+                    </div>
+                </div>
+                <div class="col-lg-1">
+                    <div class="nav-item">
+                        <img class="img-responsive" src="resources/images/upload.png" />
+                        <span>นำเข้าข้อมูล</span>
+                    </div>
+                </div>
+                <div class="col-lg-1  col-lg-offset-9">
+                    <div class="nav-item">
+                        <img class="img-responsive" src="resources/images/add.png" />
+                        <span>เพิ่มสัญญา</span>
+                    </div>
+                </div>
+            </div>
+            
+            <h:panelGroup class="panel panel-default" id="search">
+                <div class="panel-heading">
+                    <strong>ค้นหาข้อมูล</strong>
+                </div>
+                <div class="panel-body">
+                    
+                    <div class="row">
+                        <div class="col-lg-1">
+                            <label for="txtContractId" class="control-label">สัญญาเลขที่</label>
+                        </div>
+                        <div class="col-lg-2">
+                            <h:inputText id="txtContractId" styleClass="form-control"
+                                value="#{searchContractor.contractId}"></h:inputText>
+                        </div>
+                        <div class="col-lg-1 col-lg-offset-1">
+                            <label for="txtStartDate" class="control-label">จากวันที่</label>
+                        </div>
+                        <div class="col-lg-2">
+                            <div class="input-group date">
+                                <h:inputText id="txtStartDate" styleClass="form-control" value="#{searchContractor.startDate}">
+                                    <f:convertDateTime pattern="MM/dd/yyyy hh:mm" />
+                                </h:inputText>
+                                <span class="input-group-addon"><span class="glyphicon glyphicon-calendar"></span>
+                                </span>
+                            </div>
+                        </div>
+                        <div class="col-lg-1 col-lg-offset-1">
+                            <label for="txtEndDate" class="control-label">ถึงวันที่</label>
+                        </div>
+                        <div class="col-lg-2">
+                            <div class="input-group date">
+                                <h:inputText id="txtEndDate" styleClass="form-control" value="#{searchContractor.endDate}">
+                                    <f:convertDateTime pattern="MM/dd/yyyy hh:mm" />
+                                </h:inputText>
+                                <span class="input-group-addon"><span class="glyphicon glyphicon-calendar"></span>
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-lg-1">
+                            <label for="txtContractor" class="control-label">ชื่อผู้รับจ้าง</label>
+                        </div>
+                        <div class="col-lg-2">
+                            <h:inputText id="txtContractor" styleClass="form-control"
+                                value="#{searchContractor.contractorName}"></h:inputText>
+                        </div>
+                        <div class="col-lg-1 col-lg-offset-1">
+                            <label for="txtPurchaseMethod" class="control-label">วิธีจัดซื้อจัดจ้าง</label>
+                        </div>
+                        <div class="col-lg-2">
+                            <h:selectOneMenu styleClass="combobox form-control" value="#{searchContractor.selectedPurchaseMethod}">
+                                <f:selectItems value="#{searchContractor.purchaseMethods}" />
+                            </h:selectOneMenu>
+                        </div>
+                        <div class="col-lg-1 col-lg-offset-1">
+                            <label for="txtDepartment" class="control-label">หน่วยงานที่รับผิดชอบ</label>
+                        </div>
+                        <div class="col-lg-2">
+                            <h:selectOneMenu styleClass="combobox form-control" value="#{searchContractor.selectedDepartment}">
+                                <f:selectItems value="#{searchContractor.departments}" />
+                            </h:selectOneMenu>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-lg-1 col-lg-offset-10">
+                            <p:commandLink id="cmdSearch" styleClass="btn btn-primary" actionListener="#{searchContractor.search(evt)}" 
+                                           update="results" oncomplete="$('.datatable').dataTable();">
+                                <i class="icon-search"></i> ค้นหา
+                            </p:commandLink>
+                        </div>
+                        <div class="col-lg-1">
+                            <p:commandLink id="cmdReset" styleClass="btn btn-default" actionListener="#{searchContractor.reset(evt)}"
+                                           update="search, results" oncomplete="reloadAll();">Clear
+                            </p:commandLink>
+                        </div>
+                    </div>
+
+                </div>
+            </h:panelGroup>
+            
+            <h:panelGroup class="panel panel-default" id="results">
+                <div class="panel-heading">
+                    <strong>ค้นหาข้อมูล</strong>
+                </div>
+                <div class="panel-body">
+
+                    <table class="datatable table table-striped" cellspacing="0" width="100%">
+                        <thead>
+                            <tr>
+                                <th>เลขที่สัญญา</th>
+                                <th>ลงวันที่</th>
+                                <th>งาน</th>
+                                <th>สถานที่</th>
+                                <th>เริ่มงาน</th>
+                                <th>สิ้นสุด</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+
+                            <ui:repeat var="row" value="#{searchContractor.results}" varStatus="status">
+                            <tr>
+                                <td><h:outputText value="#{row['contractId']}"/></td>
+                                <td>
+                                    <h:outputText value="#{row['contractDate']}">
+                                        <f:convertDateTime pattern="dd/MM/yyyy" />
+                                    </h:outputText>
+                                </td>
+                                <td>
+                                    <div title="#{row['desc']}" style="width:350px"><h:outputText value="#{row['desc']}"/></div>
+                                </td>
+                                <td>
+                                    <div title="#{row['place']}" style="width:350px"><h:outputText value="#{row['place']}"/></div>
+                                </td>
+                                <td>
+                                    <h:outputText value="#{row['startDate']}">
+                                        <f:convertDateTime pattern="dd/MM/yyyy" />
+                                    </h:outputText>
+                                </td>
+                                <td>
+                                    <h:outputText value="#{row['endDate']}">
+                                        <f:convertDateTime pattern="dd/MM/yyyy" />
+                                    </h:outputText>
+                                </td>
+                            </tr>
+                            </ui:repeat>
+
+                        </tbody>
+                    </table>
+
+                </div>
+            </h:panelGroup>
+            
+        </h:form>
+       
+    </ui:define>
+
+</ui:composition>
